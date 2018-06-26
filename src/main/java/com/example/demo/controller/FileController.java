@@ -2,6 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.util.AppConstants;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.core.io.FileUrlResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Response;
 import java.io.*;
+import java.net.MalformedURLException;
 
 @RestController
 @RequestMapping("/file")
@@ -40,18 +45,19 @@ public class FileController {
     }
 
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public void downloadFile(HttpServletResponse response) {
+    public ResponseEntity<Resource> downloadFile(HttpServletResponse response) {
         File file = new File("./files/resource.txt");
-        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
-        try (FileInputStream fis = new FileInputStream(file)){
-            OutputStream os = response.getOutputStream();
-            IOUtils.copyLarge(fis, os);
-            os.flush();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("file not found");
-        } catch (IOException e) {
-            throw new RuntimeException("error download file");
+        try {
+            Resource resource = new UrlResource(file.toURI());
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
         }
+
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
