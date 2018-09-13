@@ -1,3 +1,5 @@
+CREATE SEQUENCE hibernate_sequence;
+
 create table users
 (
    id BIGINT NOT NULL,
