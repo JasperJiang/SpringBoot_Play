@@ -1,12 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.util.AppConstants;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.core.io.FileUrlResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping(Mappings.FILE)
 public class FileController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
