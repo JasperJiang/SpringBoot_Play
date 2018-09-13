@@ -1,2 +1,20 @@
 server:
   port: 9999
+
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:h2:mem:testDB
+    driver-class-name: org.h2.Driver
+    username: sa
+    #程序启动后会初始化这些脚本文件
+    data: classpath:db/data.sql
+  h2:
+    console:
+      settings:
+        web-allow-others: true
+      enabled: true
