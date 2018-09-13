@@ -1,3 +1,3 @@
 # SpringBoot_Play
-username: user
+username: user  
 password:pwd
