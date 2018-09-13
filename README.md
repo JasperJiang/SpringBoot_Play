@@ -1,4 +1,4 @@
 # SpringBoot_Play
 http://start.spring.io/   
-username: user  
-password:pwd  
+username: admin  
+password:admin  
