@@ -1,19 +1,20 @@
 package com.example.demo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.example.demo.enums.UserRoleEnum;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class UserEntity {
 
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long id;
 
         private String name;
 
         private String password;
+
+        private UserRoleEnum role;
 }
