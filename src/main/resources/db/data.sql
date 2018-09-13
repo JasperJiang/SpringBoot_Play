@@ -1,1 +1,1 @@
-insert into users values(1,'user', 'pwd','ADMIN');
+insert into users values(1,'admin', 'admin','ADMIN');
